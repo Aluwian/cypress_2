@@ -1,0 +1,14 @@
+[
+    {
+        "domain": "qamid.tmweb.ru",
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "PHPSESSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": true,
+        "storeId": null,
+        "value": "b7a2a854b241bf866d8bdeac44e7c5a2"
+    }
+]

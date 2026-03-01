@@ -1,0 +1,37 @@
+{
+  "admin": {
+    "validEmail":  "qamid@qamid.ru",
+    "validPassword": "qamid",
+    "invalidEmail": "invalid@login.ru",
+    "invalidPassword": "invalid_password"
+  },
+  "adminexpected": {
+    "expectedErrorMessage": "Ошибка авторизации!",
+    "expectedHallControlTitle": "Управление залами",
+    "expectedPriceConfigTitle": "Конфигурация цен"
+  },
+  "booking": {
+    "witcher": {
+      "dayIndex": 1,
+      "seanceId": "223",
+      "filmTitle": "Ведьмак",
+      "hallType": "Вип зал"
+    },
+    "pastSeance": {
+      "seanceId": "217"
+    },
+    "takenSeat": {
+      "row": 1,
+      "seat": 1
+    }
+  },
+  "main": {
+    "expectedFilmTitle": "\"Сталкер(1979)\"",
+    "expectedHeader": "Идёмвкино"
+  },
+  "links": {
+    "baseUrl": "http://qamid.tmweb.ru",
+    "clientUrl": "https://qamid.tmweb.ru/client/index.php",
+    "adminUrl": "http://qamid.tmweb.ru/admin/"
+  }
+}

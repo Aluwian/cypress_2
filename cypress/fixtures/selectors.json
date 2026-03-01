@@ -1,0 +1,37 @@
+{
+  "admin": {
+    "login": {
+      "email": "[name=\"email\"]",
+      "password": "[name=\"password\"]",
+      "submitButton": "input.login__button"
+    },
+    "dashboard": {
+      "bodySelector": "body",
+      "hallControlTitle": "#hall-control h2.conf-step__title",
+      "priceConfigTitle": "#price-configuration h2.conf-step__title",
+      "gridSession": "#grid-session div.conf-step__movies",
+      "hallConfiguration": "#hall-configuration header.conf-step__header",
+      "hallName": "#hall-control h2.conf-step__title"
+    }
+  },
+  "main": {
+    "header": "h1.page-header__title",
+    "todayDay": "a.page-nav__day_today",
+    "filmTitle": "section:nth-child(1) h2.movie__title",
+    "dayWeek": "a[data-time-stamp] span.page-nav__day-week",
+    "dayNumber": "a[data-time-stamp] span.page-nav__day-number"
+  },
+  "booking": {
+    "seanceLink": "a[data-seance-id]",
+    "chairAvailable": ".buying-scheme__chair_standart:not(.buying-scheme__chair_taken)",
+    "chairTaken": ".buying-scheme__chair_taken",
+    "chairSelected": ".buying-scheme__chair_selected",
+    "chairStandart": ".buying-scheme__chair_standart",
+    "acceptButton": "button.acceptin-button",
+    "ticketTitle": "span.ticket__title",
+    "ticketDetails": "p:nth-child(3) span.ticket__details",
+    "ticketChairs": "span.ticket__chairs",
+    "movieSeancesTimeBlock": ".movie-seances__time-block",
+    "movieSeancesTime": "a[data-seance-id].movie-seances__time"
+  }
+}
