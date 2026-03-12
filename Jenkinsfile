@@ -65,12 +65,12 @@ pipeline {
             parallel {
                 stage('Smoke') {
                     steps {
-                        sh 'npm run cy:smoke:chrome'
+                        sh 'npm run cy:smoke:single'
                     }
                 }
                 stage('Regression') {
                     steps {
-                        sh 'npm run cy:regression:firefox'
+                        sh 'npm run cy:regression:single'
                     }
                 }
             }
