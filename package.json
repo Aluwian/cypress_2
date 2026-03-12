@@ -27,7 +27,7 @@
     "cy:regression:chrome": "npm run cy:booking -- --browser chrome & npm run cy:booking-from-admin -- --browser chrome & wait",
     "cy:regression:firefox": "npm run cy:booking -- --browser firefox & npm run cy:booking-from-admin -- --browser firefox & wait",
     "cy:regression:electron": "npm run cy:booking -- --browser electron & npm run cy:booking-from-admin -- --browser electron & wait",
-    "cy:parallel-paths": "npm run cy:smoke:chrome & npm run cy:regression:firefox & wait",
+    : "npm run cy:smoke:chrome & npm run cy:regression:firefox & wait",
     "cy:parallel": "npm run cy:admin -- --group admin --ci-build-id 5 parallel & npm run cy:main -- --group main --ci-build-id 6 parallel & npm run cy:booking -- --group booking --ci-build-id parallel & npm run cy:booking-from-admin -- --group booking-from-admin --ci-build-id parallel & wait",
     "cy:run:chrome": "cypress run --browser chrome",
     "cy:run:firefox": "cypress run --browser firefox"
