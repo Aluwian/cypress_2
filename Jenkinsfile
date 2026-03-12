@@ -1,92 +1,32 @@
 pipeline {
     agent any
-
     parameters {
-        choice(
-            name: 'BROWSER',
-            choices: ['chrome', 'firefox', 'electron'],
-            description: 'Браузер для запуска тестов'
-        )
-        choice(
-            name: 'TEST_SUITE',
-            choices: ['smoke', 'regression', 'all'],
-            description: 'Набор тестов для запуска'
-        )
-        booleanParam(
-            name: 'PARALLEL_PATHS',
-            defaultValue: false,
-            description: 'Запустить smoke и regression параллельно'
-        )
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox', 'electron'], description: 'Браузер')
+        choice(name: 'TEST_SUITE', choices: ['admin', 'main', 'booking', 'booking-from-admin', 'parallel', 'all'], description: 'Тесты')
     }
-
-    environment {
-        CYPRESS_RECORD_KEY = '6212e8b1-0355-4604-b1be-720f3a1d7c79'
-    }
-
     stages {
-        stage('Install Dependencies') {
+        stage('Install') {
             steps {
                 sh 'npm install'
             }
         }
-
-        stage('Run Tests - Single Suite') {
-            when {
-                allOf {
-                    expression { return !params.PARALLEL_PATHS }
-                    expression { return params.TEST_SUITE != 'all' }
-                }
-            }
+        stage('Run Tests') {
             steps {
                 script {
-                    sh "npm run cy:${params.TEST_SUITE}:${params.BROWSER}"
-                }
-            }
-        }
-
-        stage('Run Tests - All') {
-            when {
-                allOf {
-                    expression { return !params.PARALLEL_PATHS }
-                    expression { return params.TEST_SUITE == 'all' }
-                }
-            }
-            steps {
-                script {
-                    sh "npm run cy:run:${params.BROWSER}"
-                }
-            }
-        }
-
-        stage('Run Tests - Parallel Paths') {
-            when {
-                expression { return params.PARALLEL_PATHS }
-            }
-            parallel {
-                stage('Smoke') {
-                    steps {
-                        sh 'npm run cy:smoke:single'
-                    }
-                }
-                stage('Regression') {
-                    steps {
-                        sh 'npm run cy:regression:single'
+                    if (params.TEST_SUITE == 'parallel') {
+                        parallel(
+                            'Admin': { sh "npx cypress run --spec 'cypress/e2e/smoke/admin.cy.js' --browser ${params.BROWSER} --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79" },
+                            'Main': { sh "npx cypress run --spec 'cypress/e2e/smoke/main.cy.js' --browser ${params.BROWSER} --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79" },
+                            'Booking': { sh "npx cypress run --spec 'cypress/e2e/regression/booking.cy.js' --browser ${params.BROWSER} --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79" },
+                            'BookingFromAdmin': { sh "npx cypress run --spec 'cypress/e2e/regression/booking-from-admin.cy.js' --browser ${params.BROWSER} --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79" }
+                        )
+                    } else if (params.TEST_SUITE == 'all') {
+                        sh "npm run cy:run:${params.BROWSER} -- --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79"
+                    } else {
+                        sh "npm run cy:${params.TEST_SUITE} -- --browser ${params.BROWSER} --record --key 6212e8b1-0355-4604-b1be-720f3a1d7c79"
                     }
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            archiveArtifacts artifacts: '**/cypress/screenshots/**/*.png', allowEmptyArchive: true
-            archiveArtifacts artifacts: '**/cypress/videos/**/*.mp4', allowEmptyArchive: true
-        }
-        failure {
-            echo 'Tests failed!'
-        }
-        success {
-            echo 'All tests passed!'
         }
     }
 }
